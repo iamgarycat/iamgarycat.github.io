@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>簡單按鈕計算機</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Noto Sans TC", Arial; padding: 24px; }
+    .card { max-width:420px; margin:0 auto; padding:18px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    input[type="number"]{ width:100%; padding:8px; margin:8px 0; font-size:16px; }
+    .row { display:flex; gap:8px; }
+    button { flex:1; padding:10px; font-size:16px; cursor:pointer; border-radius:8px; border:1px solid #ccc; background:#fff; }
+    #result { margin-top:12px; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>簡單按鈕計算機</h2>
+    <label>數字 A</label>
+    <input id="a" type="number" value="12" />
+    <label>數字 B</label>
+    <input id="b" type="number" value="3" />
+    <div class="row" style="margin-top:10px;">
+      <button onclick="calc('+')">A + B</button>
+      <button onclick="calc('-')">A − B</button>
+      <button onclick="calc('*')">A × B</button>
+      <button onclick="calc('/')">A ÷ B</button>
+    </div>
+    <div id="result">結果：—</div>
+  </div>
+
+  <script>
+    function calc(op) {
+      const a = Number(document.getElementById('a').value);
+      const b = Number(document.getElementById('b').value);
+      let r;
+      if (op === '+') r = a + b;
+      else if (op === '-') r = a - b;
+      else if (op === '*') r = a * b;
+      else if (op === '/') r = (b === 0 ? '不能除以 0' : a / b);
+      document.getElementById('result').textContent = '結果：' + r;
+    }
+  </script>
+</body>
+</html>
