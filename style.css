@@ -1,0 +1,46 @@
+:root {
+  --bg: #fafafa;
+  --card: #fff;
+  --accent: #2563eb;
+  --muted: #666;
+  --mono: "SFMono-Regular", Menlo, Monaco, "Roboto Mono", monospace;
+}
+*{box-sizing:border-box}
+body{
+  font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  margin:0;
+  color:#111;
+  padding:24px;
+}
+main{
+  max-width:1000px;
+  margin:0 auto;
+}
+h1{margin:0 0 12px}
+.config, .results{
+  background:var(--card);
+  border-radius:8px;
+  padding:12px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+  margin-bottom:12px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:8px;
+  align-items:center;
+}
+label{display:flex;gap:8px;align-items:center}
+input[type="text"], input[type="number"], select{
+  flex:1;padding:6px;border:1px solid #ddd;border-radius:4px
+}
+.actions{margin-top:8px;display:flex;gap:8px;align-items:center}
+button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+button[disabled]{opacity:0.5;cursor:default}
+.log{height:160px;overflow:auto;background:#111;color:#dcdcdc;padding:8px;border-radius:6px;font-family:var(--mono);font-size:13px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:6px;border-bottom:1px solid #f0f0f0;text-align:left;font-family:var(--mono)}
+th{font-size:13px;color:var(--muted)}
+tbody tr:hover{background:#f9fbff}
+footer{margin-top:12px;color:var(--muted);font-size:13px}

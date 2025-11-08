@@ -1,45 +1,68 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>簡單按鈕計算機</title>
-  <style>
-    body { font-family: system-ui, -apple-system, "Noto Sans TC", Arial; padding: 24px; }
-    .card { max-width:420px; margin:0 auto; padding:18px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
-    input[type="number"]{ width:100%; padding:8px; margin:8px 0; font-size:16px; }
-    .row { display:flex; gap:8px; }
-    button { flex:1; padding:10px; font-size:16px; cursor:pointer; border-radius:8px; border:1px solid #ccc; background:#fff; }
-    #result { margin-top:12px; font-weight:700; }
-  </style>
+  <title>Expression Enumerator — Web UI</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="card">
-    <h2>簡單按鈕計算機</h2>
-    <label>數字 A</label>
-    <input id="a" type="number" value="12" />
-    <label>數字 B</label>
-    <input id="b" type="number" value="3" />
-    <div class="row" style="margin-top:10px;">
-      <button onclick="calc('+')">A + B</button>
-      <button onclick="calc('-')">A − B</button>
-      <button onclick="calc('*')">A × B</button>
-      <button onclick="calc('/')">A ÷ B</button>
-    </div>
-    <div id="result">結果：—</div>
-  </div>
+  <main>
+    <h1>Expression Enumerator (browser)</h1>
 
-  <script>
-    function calc(op) {
-      const a = Number(document.getElementById('a').value);
-      const b = Number(document.getElementById('b').value);
-      let r;
-      if (op === '+') r = a + b;
-      else if (op === '-') r = a - b;
-      else if (op === '*') r = a * b;
-      else if (op === '/') r = (b === 0 ? '不能除以 0' : a / b);
-      document.getElementById('result').textContent = '結果：' + r;
-    }
-  </script>
+    <section class="config">
+      <h2>Configuration</h2>
+      <div class="grid">
+        <label>N (numbers 1..N): <input id="cfg-n" type="number" value="6" min="1" /></label>
+        <label>target: <input id="cfg-target" type="number" value="831.0" /></label>
+        <label>constants (JSON): <input id="cfg-consts" type="text" value='{"z":1.23456789}' /></label>
+        <label>keep_side:
+          <select id="cfg-keep-side">
+            <option value="both">both</option>
+            <option value="greater" selected>greater</option>
+            <option value="less">less</option>
+          </select>
+        </label>
+        <label>max_cost: <input id="cfg-max-cost" type="number" value="7" min="1" /></label>
+        <label>keep_top: <input id="cfg-keep-top" type="number" value="10" min="1" /></label>
+        <label>max_seconds: <input id="cfg-max-seconds" type="number" step="0.1" value="10" min="0.1" /></label>
+      </div>
+
+      <details>
+        <summary>Function toggles</summary>
+        <div class="grid">
+          <label><input type="checkbox" id="use-sin" checked /> sin</label>
+          <label><input type="checkbox" id="use-cos" checked /> cos</label>
+          <label><input type="checkbox" id="use-tan" checked /> tan</label>
+          <label><input type="checkbox" id="use-exp" checked /> exp</label>
+          <label><input type="checkbox" id="use-ln" checked /> ln</label>
+          <label><input type="checkbox" id="use-sqrt" checked /> sqrt</label>
+          <label><input type="checkbox" id="use-neg" checked /> unary -</label>
+          <label><input type="checkbox" id="use-pow" checked /> pow (^)</label>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button id="run-btn">Run</button>
+        <button id="stop-btn" disabled>Stop</button>
+        <span id="status">idle</span>
+      </div>
+    </section>
+
+    <section class="results">
+      <h2>Results</h2>
+      <pre id="log" class="log"></pre>
+      <table id="results-table">
+        <thead><tr><th>#</th><th>error</th><th>value</th><th>expression</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <footer>
+      <small>Client-only port of the Python enumerator. For heavy runs consider using a server or Web Worker.</small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
