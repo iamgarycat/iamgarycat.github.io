@@ -321,7 +321,7 @@
       throw e;
     }
     return {
-      N: parseInt($('cfg-n').value,10)||6,
+      N: parseInt($('cfg-n').value,10)||0,
       target: Number($('cfg-target').value)||0,
       consts,
       use_sin: $('use-sin').checked,
