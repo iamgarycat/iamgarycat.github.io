@@ -27,13 +27,32 @@ h1{margin:0 0 12px}
 }
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:8px;
-  align-items:center;
+  /* 每個欄位最小寬度加大，避免太多欄位擠在同一行 */
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+  align-items:start;
 }
-label{display:flex;gap:8px;align-items:center}
+label{
+  /* 將 label 內文堆疊 (標題在上，輸入框在下)，增加垂直間距 */
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:flex-start;
+  min-height:72px; /* 確保每個欄位大約佔 3-4 行的空間 */
+  white-space:normal;
+}
+label > span {
+  /* 如果需要把 label 文本放在 <span> 中（選用）會更方便控制字體大小 */
+  font-size:0.95rem;
+  color:var(--muted);
+}
 input[type="text"], input[type="number"], select{
-  flex:1;padding:6px;border:1px solid #ddd;border-radius:4px
+  width:100%;
+  box-sizing:border-box;
+  padding:8px 10px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  font-size:0.95rem;
 }
 .actions{margin-top:8px;display:flex;gap:8px;align-items:center}
 button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
@@ -44,3 +63,12 @@ th,td{padding:6px;border-bottom:1px solid #f0f0f0;text-align:left;font-family:va
 th{font-size:13px;color:var(--muted)}
 tbody tr:hover{background:#f9fbff}
 footer{margin-top:12px;color:var(--muted);font-size:13px}
+
+/* keep the function toggles more compact */
+details .grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px }
+
+/* responsive: on very small screens, make everything single column */
+@media (max-width:480px){
+  .grid{grid-template-columns:1fr}
+  label{min-height:64px}
+}
